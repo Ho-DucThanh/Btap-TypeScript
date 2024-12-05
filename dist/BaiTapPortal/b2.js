@@ -1,0 +1,10 @@
+"use strict";
+let num = 12;
+let str = "Hello";
+let check = true;
+num = 123;
+str = "Hi";
+check = false;
+console.log(num);
+console.log(str);
+console.log(check);

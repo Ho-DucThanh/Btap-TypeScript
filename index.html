@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Bai tap Portal</h1>
+    <div>
+      <h2>Bài 5</h2>
+      <input type="text" id="input1" placeholder="Nhập số thứ nhất" />
+      <input type="text" id="input2" placeholder="Nhập số thứ hai" />
+      <input type="text" id="input3" placeholder="Kết quả" />
+      <button id="btnTong">Tổng</button>
+      <button id="btnHieu">Hiệu</button>
+      <button id="btnTich">Tích</button>
+      <button id="btnThuong">Thương</button>
+      <button id="btnLuyThua">Lũy Thừa</button>
+    </div>
+
+    <div>
+      <h2>Bài 6</h2>
+      <input
+        type="text"
+        id="input4"
+        placeholder="Nhập số cần tính giai thừa hoặc căn bậc"
+      />
+      <input type="text" id="input5" placeholder="Kết quả" />
+      <button id="btnGiaiThua">Giai thừa</button>
+      <button id="btnCanBac2">Căn bậc 2</button>
+    </div>
+
+    <div>
+      <h2>Bài 8: Game Đoán Số</h2>
+      <p>Game đoán số (bạn chỉ có 3 lượt đoán)</p>
+      <input type="text" id="input6" placeholder="Nhập số cần đoán" />
+      <div style="margin-top: 10px; margin-left: 20px">
+        <button id="btnCancel">Cancel</button>
+        <button id="btnOk">OK</button>
+      </div>
+    </div>
+
+    <div>
+      <h2>Bài 10: Ứng dụng tìm cung hoàng đạo</h2>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <p>Ngày sinh:</p>
+        <input type="text" id="input7" placeholder="Nhập ngày sinh" />
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <p>Tháng sinh:</p>
+        <input type="text" id="input8" placeholder="Nhập tháng sinh" />
+      </div>
+      <button id="btnCheckZodiac">Xem chòm sao</button>
+    </div>
+  </body>
+  <script src="./dist/BaiTapPortal/b2.js"></script>
+  <script src="./dist/BaiTapPortal/b3.js"></script>
+  <script src="./dist/BaiTapPortal/b4.js"></script>
+  <script src="./dist/BaiTapPortal/b5.js"></script>
+  <script src="./dist/BaiTapPortal/b6.js"></script>
+  <script src="./dist/BaiTapPortal/b7.js"></script>
+  <script src="./dist/BaiTapPortal/b8.js"></script>
+  <script src="./dist/BaiTapPortal/b9.js"></script>
+  <script src="./dist/BaiTapPortal/b10.js"></script>
+
+  <script>
+    // Bai 5,6
+    function add() {
+      console.log("chay ham");
+      let a = document.getElementById("input1").value;
+      let b = document.getElementById("input2").value;
+      return cong(a, b);
+    }
+
+    function sub() {
+      let a = document.getElementById("input1").value;
+      let b = document.getElementById("input2").value;
+      return tru(a, b);
+    }
+
+    function multiplication() {
+      let a = document.getElementById("input1").value;
+      let b = document.getElementById("input2").value;
+      return nhan(a, b);
+    }
+
+    function division() {
+      let a = document.getElementById("input1").value;
+      let b = document.getElementById("input2").value;
+      return chia(a, b);
+    }
+
+    function exponential() {
+      let a = document.getElementById("input1").value;
+      let b = document.getElementById("input2").value;
+      return luyThua(a, b);
+    }
+
+    function factorial() {
+      let a = document.getElementById("input4").value;
+      return giaithua(a);
+    }
+
+    function squareRoot() {
+      let a = document.getElementById("input4").value;
+      return canbac2(a);
+    }
+
+    document.getElementById("btnTong").addEventListener("click", () => {
+      const result = add();
+      document.getElementById("input3").value = result;
+    });
+    document.getElementById("btnHieu").addEventListener("click", () => {
+      const result = sub();
+      document.getElementById("input3").value = result;
+    });
+    document.getElementById("btnTich").addEventListener("click", () => {
+      const result = multiplication();
+      document.getElementById("input3").value = result;
+    });
+    document.getElementById("btnThuong").addEventListener("click", () => {
+      const result = division();
+      document.getElementById("input3").value = result;
+    });
+    document.getElementById("btnLuyThua").addEventListener("click", () => {
+      const result = exponential();
+      document.getElementById("input3").value = result;
+    });
+    document.getElementById("btnGiaiThua").addEventListener("click", () => {
+      const result = factorial();
+      document.getElementById("input5").value = result;
+    });
+    document.getElementById("btnCanBac2").addEventListener("click", () => {
+      const result = squareRoot();
+      document.getElementById("input5").value = result;
+    });
+
+    // Bai 8
+    let randomNumber = generateRandomNumber();
+    console.log(randomNumber);
+    let attempts = 3;
+    const inputElement = document.getElementById("input6");
+    const btnOk = document.getElementById("btnOk");
+    const btnCancel = document.getElementById("btnCancel");
+    btnOk.addEventListener("click", () => {
+      const userGuess = parseInt(inputElement.value);
+      console.log(userGuess);
+
+      if (isNaN(userGuess) || userGuess < 1 || userGuess > 10) {
+        alert("Vui lòng nhập số trong khoảng 1 đến 10.");
+        return;
+      }
+
+      const result = checkGuess(userGuess, randomNumber);
+
+      if (result === "correct") {
+        alert("Chúc mừng! Bạn đã đoán đúng!");
+        resetGame();
+      } else {
+        attempts--;
+        if (attempts === 0) {
+          alert(`Bạn đã thua! Số đúng là ${randomNumber}.`);
+          resetGame();
+        } else if (result === "high") {
+          alert(
+            `Sai rồi! Số bạn đoán lớn hơn số được chọn. Bạn còn ${attempts} lượt.`
+          );
+        } else {
+          alert(
+            `Sai rồi! Số bạn đoán nhỏ hơn số được chọn. Bạn còn ${attempts} lượt.`
+          );
+        }
+      }
+    });
+    btnCancel.addEventListener("click", () => {
+      resetGame();
+      alert("Game đã được khởi động lại!");
+    });
+    function resetGame() {
+      randomNumber = generateRandomNumber();
+      attempts = 3;
+      inputElement.value = "";
+    }
+
+    // Bai 10
+    document.getElementById("btnCheckZodiac").addEventListener("click", () => {
+      const day = parseInt(document.getElementById("input7").value);
+      const month = parseInt(document.getElementById("input8").value);
+      const zodiacSign = getZodiacSign(day, month);
+      alert(`Chòm sao của bạn là: ${zodiacSign}`);
+    });
+  </script>
+</html>
