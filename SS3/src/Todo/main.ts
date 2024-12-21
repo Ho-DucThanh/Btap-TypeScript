@@ -1,7 +1,10 @@
 import TodoListManager from "./TodoListManager";
 
 class Main {
-  private todoListManager: TodoListManager = new TodoListManager();
+  private todoListManager: TodoListManager;
+  constructor() {
+    this.todoListManager = new TodoListManager();
+  }
 
   run(): void {
     const inputField = document.getElementById(
